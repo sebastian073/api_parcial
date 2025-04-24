@@ -9,6 +9,7 @@ const App = () => {
   const [search, setSearch] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState("inicio");  // Estado para la pestaña activa
 
   // Obtener usuarios aleatorios de la API
   useEffect(() => {
@@ -61,23 +62,48 @@ const App = () => {
         />
       </div>
 
-      {loading ? (
-        <p>Cargando usuarios...</p>
-      ) : (
-        <div className="user-list">
-          {filteredUsers.map((user) => (
-            <UserCard
-              key={user.email}
-              user={user}
-              favorites={favorites}
-              toggleFavorite={toggleFavorite}
-            />
-          ))}
-        </div>
-      )}
+      {/* Mostrar contenido según la pestaña activa */}
+      <div className="content">
+        {activeTab === "inicio" && <p>Bienvenido a la aplicación</p>}
+        {activeTab === "lista" && (
+          <div className="user-list">
+            {loading ? (
+              <p>Cargando usuarios...</p>
+            ) : (
+              filteredUsers.map((user) => (
+                <UserCard
+                  key={user.email}
+                  user={user}
+                  favorites={favorites}
+                  toggleFavorite={toggleFavorite}
+                />
+              ))
+            )}
+          </div>
+        )}
+        {activeTab === "filtro" && <p>Filtrar resultados...</p>}
+        {activeTab === "buscar" && <p>Buscador de usuarios...</p>}
+        {activeTab === "favoritos" && (
+          <div className="user-list">
+            {favorites.length === 0 ? (
+              <p>No tienes favoritos.</p>
+            ) : (
+              favorites.map((user) => (
+                <UserCard
+                  key={user.email}
+                  user={user}
+                  favorites={favorites}
+                  toggleFavorite={toggleFavorite}
+                />
+              ))
+            )}
+          </div>
+        )}
+        {activeTab === "configuracion" && <p>Configuración de la aplicación</p>}
+      </div>
 
       {/* Menú Inferior */}
-      <FooterMenu />
+      <FooterMenu activeTab={activeTab} setActiveTab={setActiveTab} />
     </div>
   );
 };

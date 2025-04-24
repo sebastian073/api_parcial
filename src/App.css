@@ -30,6 +30,41 @@ body {
   border-radius: 5px;
 }
 
+.content {
+  margin-bottom: 80px; /* Para evitar que se oculte debajo del menú inferior */
+}
+
+/* Menú inferior */
+.footer {
+  background-color: #343a40;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.footer ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+.footer ul li {
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.footer ul li:hover {
+  background-color: #495057;
+}
+
+.footer ul li.active {
+  background-color: #007bff;
+  color: white;
+}
+
 .user-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -77,28 +112,4 @@ body {
 
 .favorite-btn:hover {
   opacity: 0.8;
-}
-
-.footer {
-  background-color: #343a40;
-  padding: 15px 0;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-}
-
-.footer ul {
-  list-style: none;
-  display: flex;
-  justify-content: space-around;
-}
-
-.footer ul li {
-  color: white;
-  cursor: pointer;
-}
-
-.footer ul li:hover {
-  text-decoration: underline;
 }
