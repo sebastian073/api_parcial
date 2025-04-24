@@ -72,3 +72,80 @@
   padding: 12px;
   z-index: 10;
 }
+
+.container {
+  padding: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: 80px; /* para no tapar el contenido con el menú */
+}
+
+.search-bar {
+  margin-bottom: 16px;
+  padding: 8px;
+  width: 100%;
+  font-size: 16px;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #eee;
+  padding: 12px;
+  margin-bottom: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-header img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.bottom-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border-top: 1px solid #ccc;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  padding: 8px 0;
+  z-index: 10;
+}
+
+.tab-btn {
+  padding: 8px;
+  border: none;
+  background-color: #eee;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.tab-btn.active {
+  background-color: #ddd;
+  font-weight: bold;
+}
+
+.filter-panel {
+  padding: 12px;
+  background-color: #f9f9f9;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+}

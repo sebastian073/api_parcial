@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import { FaStar, FaRegStar } from "react-icons/fa"; // Usamos react-icons para los íconos de estrellas
+import { FaStar, FaRegStar } from "react-icons/fa";
 
 function App() {
   const usersData = [
@@ -28,6 +28,31 @@ function App() {
       name: { first: "Chris", last: "Davis" },
       email: "chrisdavis@example.com",
       picture: { thumbnail: "https://randomuser.me/api/portraits/thumb/men/5.jpg" }
+    },
+    {
+      name: { first: "Laura", last: "Wilson" },
+      email: "laurawilson@example.com",
+      picture: { thumbnail: "https://randomuser.me/api/portraits/thumb/women/6.jpg" }
+    },
+    {
+      name: { first: "David", last: "Miller" },
+      email: "davidmiller@example.com",
+      picture: { thumbnail: "https://randomuser.me/api/portraits/thumb/men/7.jpg" }
+    },
+    {
+      name: { first: "Sophia", last: "Martinez" },
+      email: "sophiamartinez@example.com",
+      picture: { thumbnail: "https://randomuser.me/api/portraits/thumb/women/8.jpg" }
+    },
+    {
+      name: { first: "Daniel", last: "Garcia" },
+      email: "danielgarcia@example.com",
+      picture: { thumbnail: "https://randomuser.me/api/portraits/thumb/men/9.jpg" }
+    },
+    {
+      name: { first: "Olivia", last: "Taylor" },
+      email: "oliviataylor@example.com",
+      picture: { thumbnail: "https://randomuser.me/api/portraits/thumb/women/10.jpg" }
     }
   ];
 
@@ -44,42 +69,39 @@ function App() {
 
   const filterByTab = () => {
     let list = users;
-    switch (tab) {
-      case "favorites":
-        list = list.filter((user) => favorites.includes(user.email));
-        break;
-      default:
-        break;
+
+    if (tab === "favorites") {
+      list = list.filter((user) => favorites.includes(user.email));
     }
-    return list.filter((user) => user.name.first.toLowerCase().includes(search.toLowerCase()));
+
+    if (tab === "search") {
+      list = list.filter((user) =>
+        `${user.name.first} ${user.name.last}`.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    return list;
   };
 
   const displayedUsers = filterByTab();
 
   return (
     <div className="container">
-      <input
-        type="text"
-        placeholder="Buscar usuario..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="search-bar"
-      />
+      {tab === "search" && (
+        <input
+          type="text"
+          placeholder="Buscar usuario..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="search-bar"
+        />
+      )}
 
-      <div className="tabs">
-        <button
-          className={`tab-btn ${tab === "all" ? "active" : ""}`}
-          onClick={() => setTab("all")}
-        >
-          Todos
-        </button>
-        <button
-          className={`tab-btn ${tab === "favorites" ? "active" : ""}`}
-          onClick={() => setTab("favorites")}
-        >
-          Favoritos
-        </button>
-      </div>
+      {tab === "filter" && (
+        <div className="filter-panel">
+          <p>🔍 Aquí podrías agregar opciones de filtrado por género, email, etc.</p>
+        </div>
+      )}
 
       <div>
         {displayedUsers.map((user) => (
@@ -87,9 +109,7 @@ function App() {
             <div className="card-header">
               <img src={user.picture.thumbnail} alt={user.name.first} />
               <div>
-                <div>
-                  <strong>{user.name.first} {user.name.last}</strong>
-                </div>
+                <strong>{user.name.first} {user.name.last}</strong>
                 <div>{user.email}</div>
               </div>
             </div>
@@ -105,17 +125,23 @@ function App() {
       </div>
 
       <div className="bottom-menu">
-        <button
-          className={tab === "all" ? "tab-btn active" : "tab-btn"}
-          onClick={() => setTab("all")}
-        >
-          Todos
+        <button className={`tab-btn ${tab === "all" ? "active" : ""}`} onClick={() => setTab("all")}>
+          Listar
         </button>
-        <button
-          className={tab === "favorites" ? "tab-btn active" : "tab-btn"}
-          onClick={() => setTab("favorites")}
-        >
+        <button className={`tab-btn ${tab === "filter" ? "active" : ""}`} onClick={() => setTab("filter")}>
+          Filtro
+        </button>
+        <button className={`tab-btn ${tab === "search" ? "active" : ""}`} onClick={() => setTab("search")}>
+          Buscador
+        </button>
+        <button className={`tab-btn ${tab === "favorites" ? "active" : ""}`} onClick={() => setTab("favorites")}>
           Favoritos
+        </button>
+        <button className={`tab-btn ${tab === "extra1" ? "active" : ""}`} onClick={() => setTab("extra1")}>
+          Extra 1
+        </button>
+        <button className={`tab-btn ${tab === "extra2" ? "active" : ""}`} onClick={() => setTab("extra2")}>
+          Extra 2
         </button>
       </div>
     </div>
