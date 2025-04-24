@@ -99,7 +99,7 @@ function App() {
 
       {tab === "filter" && (
         <div className="filter-panel">
-          <p>🔍 Aquí podrías agregar opciones de filtrado por género, email, etc.</p>
+          <p>🔍 no existen categorias</p>
         </div>
       )}
 
