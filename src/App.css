@@ -1,123 +1,74 @@
-/* Estilos generales */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f7f7f7;
-}
-
-.app {
-  max-width: 1200px;
-  margin: 0 auto;
+.container {
   padding: 20px;
-}
-
-.header {
+  max-width: 1280px;
+  margin: 0 auto;
   text-align: center;
-  margin-bottom: 20px;
 }
 
-.header input {
+.search-bar {
+  margin-bottom: 16px;
   padding: 8px;
-  width: 80%;
-  margin-top: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.header button {
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-  font-size: 16px;
-}
-
-.header button:hover {
-  background-color: #0056b3;
-}
-
-/* Tabla de usuarios */
-.user-table {
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+  font-size: 16px;
 }
 
-.user-table th, .user-table td {
-  padding: 10px;
-  text-align: left;
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
 }
 
-.user-table th {
-  background-color: #007bff;
-  color: white;
+.tab-btn {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  background-color: #eee;
+  cursor: pointer;
+  margin: 0 4px;
 }
 
-.user-table tr:nth-child(even) {
-  background-color: #f2f2f2;
+.tab-btn.active {
+  background-color: #ddd;
+  font-weight: bold;
 }
 
-.user-table img {
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #eee;
+  padding: 12px;
+  margin-bottom: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-header img {
+  border-radius: 50%;
   width: 50px;
   height: 50px;
-  border-radius: 50%;
 }
 
-/* Botón de favoritos */
 .favorite-btn {
-  background-color: #007bff;
-  color: white;
+  background: none;
   border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
 }
 
-.favorite-btn.active {
-  background-color: #28a745;
-}
-
-.favorite-btn:hover {
-  opacity: 0.8;
-}
-
-/* Menú inferior */
-.footer {
-  background-color: #343a40;
-  padding: 10px 0;
+.bottom-menu {
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
-  text-align: center;
-}
-
-.footer ul {
-  list-style: none;
+  background-color: white;
+  border-top: 1px solid #ccc;
   display: flex;
   justify-content: space-around;
-}
-
-.footer ul li {
-  color: white;
-  cursor: pointer;
-  padding: 10px;
-}
-
-.footer ul li:hover {
-  background-color: #495057;
-}
-
-.footer ul li.active {
-  background-color: #007bff;
-  color: white;
+  padding: 12px;
+  z-index: 10;
 }
