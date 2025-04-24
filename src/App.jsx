@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
-import { Star, StarOff } from "lucide-react";
+import { FaStar, FaRegStar } from "react-icons/fa"; // Usamos react-icons para los íconos de estrellas
 
 function App() {
-  // Datos simulados de usuarios
   const usersData = [
     {
       name: { first: "John", last: "Doe" },
@@ -29,24 +28,20 @@ function App() {
       name: { first: "Chris", last: "Davis" },
       email: "chrisdavis@example.com",
       picture: { thumbnail: "https://randomuser.me/api/portraits/thumb/men/5.jpg" }
-    },
-    // Agrega más usuarios aquí...
+    }
   ];
 
-  // Estados
   const [users, setUsers] = useState(usersData);
   const [search, setSearch] = useState("");
   const [favorites, setFavorites] = useState([]);
   const [tab, setTab] = useState("all");
 
-  // Función para agregar o quitar de favoritos
   const toggleFavorite = (email) => {
     setFavorites((prev) =>
       prev.includes(email) ? prev.filter((f) => f !== email) : [...prev, email]
     );
   };
 
-  // Filtrar usuarios por tab y búsqueda
   const filterByTab = () => {
     let list = users;
     switch (tab) {
@@ -59,7 +54,6 @@ function App() {
     return list.filter((user) => user.name.first.toLowerCase().includes(search.toLowerCase()));
   };
 
-  // Obtener los usuarios que cumplen con el filtro
   const displayedUsers = filterByTab();
 
   return (
@@ -101,9 +95,9 @@ function App() {
             </div>
             <button className="favorite-btn" onClick={() => toggleFavorite(user.email)}>
               {favorites.includes(user.email) ? (
-                <Star color="gold" size={20} />
+                <FaStar color="gold" size={20} />
               ) : (
-                <StarOff size={20} />
+                <FaRegStar size={20} />
               )}
             </button>
           </div>
