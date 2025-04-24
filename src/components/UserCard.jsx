@@ -1,6 +1,7 @@
 import React from "react";
 
 const UserCard = ({ user, toggleFavorite, favorites }) => {
+  // Comprobar si el usuario está en favoritos
   const isFavorite = favorites.some((fav) => fav.email === user.email);
 
   return (
@@ -10,7 +11,7 @@ const UserCard = ({ user, toggleFavorite, favorites }) => {
       <p>{user.email}</p>
       <button
         onClick={() => toggleFavorite(user)}
-        className={isFavorite ? "favorite active" : "favorite"}
+        className={isFavorite ? "favorite-btn active" : "favorite-btn"}
       >
         {isFavorite ? "Eliminar de favoritos" : "Agregar a favoritos"}
       </button>

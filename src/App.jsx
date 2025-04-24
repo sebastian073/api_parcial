@@ -4,30 +4,30 @@ import UserCard from "./components/UserCard";
 import FooterMenu from "./components/FooterMenu";
 
 const App = () => {
-  const [users, setUsers] = useState([]);
-  const [favorites, setFavorites] = useState([]);
-  const [search, setSearch] = useState("");
-  const [filteredUsers, setFilteredUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState("inicio");
+  const [users, setUsers] = useState([]); // Para los usuarios generados
+  const [favorites, setFavorites] = useState([]); // Para los favoritos
+  const [search, setSearch] = useState(""); // Para buscar
+  const [filteredUsers, setFilteredUsers] = useState([]); // Para los usuarios filtrados
+  const [loading, setLoading] = useState(false); // Para mostrar la carga
+  const [activeTab, setActiveTab] = useState("inicio"); // Para la pestaña activa
 
   // Función para generar usuarios aleatorios
   const generateUsers = () => {
     setLoading(true);
-    fetch("https://randomuser.me/api/?results=20") // Obtenemos 20 usuarios
+    fetch("https://randomuser.me/api/?results=20") // Obtener 20 usuarios
       .then((response) => response.json())
       .then((data) => {
-        setUsers(data.results); // Almacenamos los usuarios generados
-        setFilteredUsers(data.results); // Filtramos por defecto
-        setLoading(false); // Dejamos de mostrar el estado de carga
+        setUsers(data.results); // Almacenar los usuarios generados
+        setFilteredUsers(data.results); // Filtrar por defecto
+        setLoading(false); // Dejar de mostrar carga
       })
       .catch((error) => {
         console.error("Error al generar usuarios:", error);
-        setLoading(false); // Si hay error, dejamos de mostrar el estado de carga
+        setLoading(false);
       });
   };
 
-  // Filtrar usuarios por nombre o correo electrónico
+  // Filtrar los usuarios cuando hay una búsqueda
   useEffect(() => {
     if (search) {
       const filtered = users.filter(
@@ -35,19 +35,19 @@ const App = () => {
           user.name.first.toLowerCase().includes(search.toLowerCase()) ||
           user.email.toLowerCase().includes(search.toLowerCase())
       );
-      setFilteredUsers(filtered); // Aplicamos el filtro
+      setFilteredUsers(filtered);
     } else {
-      setFilteredUsers(users); // Si no hay búsqueda, mostramos todos los usuarios
+      setFilteredUsers(users);
     }
   }, [search, users]);
 
-  // Agregar o quitar de favoritos
+  // Función para agregar o quitar de favoritos
   const toggleFavorite = (user) => {
     setFavorites((prevFavorites) => {
       if (prevFavorites.some((fav) => fav.email === user.email)) {
-        return prevFavorites.filter((fav) => fav.email !== user.email); // Eliminar favorito
+        return prevFavorites.filter((fav) => fav.email !== user.email);
       }
-      return [...prevFavorites, user]; // Agregar a favoritos
+      return [...prevFavorites, user];
     });
   };
 
@@ -66,7 +66,6 @@ const App = () => {
         </button>
       </div>
 
-      {/* Mostrar contenido según la pestaña activa */}
       <div className="content">
         {activeTab === "inicio" && <p>Bienvenido a la aplicación</p>}
         {activeTab === "lista" && (
@@ -106,7 +105,6 @@ const App = () => {
         {activeTab === "configuracion" && <p>Configuración de la aplicación</p>}
       </div>
 
-      {/* Menú Inferior */}
       <FooterMenu activeTab={activeTab} setActiveTab={setActiveTab} />
     </div>
   );
