@@ -13,16 +13,16 @@ const App = () => {
 
   // Obtener usuarios aleatorios de la API
   useEffect(() => {
-    fetch("https://randomuser.me/api/?results=20")
-      .then((response) => response.json())
+    fetch("https://randomuser.me/api/?results=20") // Se obtienen 20 usuarios aleatorios
+      .then((response) => response.json()) // Convertimos la respuesta a JSON
       .then((data) => {
-        setUsers(data.results);
-        setFilteredUsers(data.results);
-        setLoading(false);
+        setUsers(data.results); // Guardamos los usuarios en el estado
+        setFilteredUsers(data.results); // Filtramos los usuarios (por defecto todos)
+        setLoading(false); // Cambiamos el estado de carga a false
       })
       .catch((error) => {
         console.error("Hubo un error al obtener los usuarios:", error);
-        setLoading(false);
+        setLoading(false); // Si ocurre un error, cambiamos el estado de carga
       });
   }, []);
 
@@ -34,9 +34,9 @@ const App = () => {
           user.name.first.toLowerCase().includes(search.toLowerCase()) ||
           user.email.toLowerCase().includes(search.toLowerCase())
       );
-      setFilteredUsers(filtered);
+      setFilteredUsers(filtered); // Filtramos los usuarios según la búsqueda
     } else {
-      setFilteredUsers(users);
+      setFilteredUsers(users); // Si no hay búsqueda, mostramos todos los usuarios
     }
   }, [search, users]);
 
@@ -68,7 +68,7 @@ const App = () => {
         {activeTab === "lista" && (
           <div className="user-list">
             {loading ? (
-              <p>Cargando usuarios...</p>
+              <p>Cargando usuarios...</p> // Mensaje mientras cargan los usuarios
             ) : (
               filteredUsers.map((user) => (
                 <UserCard

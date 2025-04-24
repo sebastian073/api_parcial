@@ -1,7 +1,8 @@
-// src/components/UserCard.jsx
 import React from "react";
 
-const UserCard = ({ user, toggleFavorite, isFavorite }) => {
+const UserCard = ({ user, toggleFavorite, favorites }) => {
+  const isFavorite = favorites.some((fav) => fav.email === user.email);
+
   return (
     <div className="user-card">
       <img src={user.picture.medium} alt={user.name.first} />

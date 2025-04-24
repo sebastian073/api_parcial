@@ -34,6 +34,12 @@ body {
   margin-bottom: 80px; /* Para evitar que se oculte debajo del menú inferior */
 }
 
+.user-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
 /* Menú inferior */
 .footer {
   background-color: #343a40;
@@ -63,12 +69,6 @@ body {
 .footer ul li.active {
   background-color: #007bff;
   color: white;
-}
-
-.user-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
 }
 
 .user-card {
