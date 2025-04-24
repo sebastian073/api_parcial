@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import UserCard from "./components/UserCard";
 import FooterMenu from "./components/FooterMenu";
 
 const App = () => {
-  const [users, setUsers] = useState([]); // Para los usuarios generados
-  const [favorites, setFavorites] = useState([]); // Para los favoritos
-  const [search, setSearch] = useState(""); // Para buscar
-  const [filteredUsers, setFilteredUsers] = useState([]); // Para los usuarios filtrados
-  const [loading, setLoading] = useState(false); // Para mostrar la carga
-  const [activeTab, setActiveTab] = useState("inicio"); // Para la pestaña activa
+  const [users, setUsers] = useState([]); // Usuarios generados
+  const [favorites, setFavorites] = useState([]); // Usuarios favoritos
+  const [search, setSearch] = useState(""); // Búsqueda
+  const [filteredUsers, setFilteredUsers] = useState([]); // Usuarios filtrados
+  const [loading, setLoading] = useState(false); // Estado de carga
+  const [activeTab, setActiveTab] = useState("inicio"); // Pestaña activa
 
   // Función para generar usuarios aleatorios
   const generateUsers = () => {
     setLoading(true);
-    fetch("https://randomuser.me/api/?results=20") // Obtener 20 usuarios
+    fetch("https://randomuser.me/api/?results=10") // Obtener 10 usuarios
       .then((response) => response.json())
       .then((data) => {
         setUsers(data.results); // Almacenar los usuarios generados
         setFilteredUsers(data.results); // Filtrar por defecto
-        setLoading(false); // Dejar de mostrar carga
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error al generar usuarios:", error);
@@ -27,7 +26,7 @@ const App = () => {
       });
   };
 
-  // Filtrar los usuarios cuando hay una búsqueda
+  // Filtrar los usuarios cuando hay búsqueda
   useEffect(() => {
     if (search) {
       const filtered = users.filter(
@@ -41,13 +40,13 @@ const App = () => {
     }
   }, [search, users]);
 
-  // Función para agregar o quitar de favoritos
+  // Agregar o quitar favoritos
   const toggleFavorite = (user) => {
     setFavorites((prevFavorites) => {
       if (prevFavorites.some((fav) => fav.email === user.email)) {
-        return prevFavorites.filter((fav) => fav.email !== user.email);
+        return prevFavorites.filter((fav) => fav.email !== user.email); // Eliminar
       }
-      return [...prevFavorites, user];
+      return [...prevFavorites, user]; // Agregar
     });
   };
 
@@ -67,44 +66,86 @@ const App = () => {
       </div>
 
       <div className="content">
+        {/* Pestaña de inicio */}
         {activeTab === "inicio" && <p>Bienvenido a la aplicación</p>}
+
+        {/* Pestaña de usuarios generados */}
         {activeTab === "lista" && (
           <div className="user-list">
             {loading ? (
               <p>Cargando usuarios...</p>
             ) : (
-              filteredUsers.map((user) => (
-                <UserCard
-                  key={user.email}
-                  user={user}
-                  favorites={favorites}
-                  toggleFavorite={toggleFavorite}
-                />
-              ))
+              <table className="user-table">
+                <thead>
+                  <tr>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Agregar a Favoritos</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredUsers.map((user) => (
+                    <tr key={user.email}>
+                      <td>
+                        <img src={user.picture.medium} alt={user.name.first} />
+                      </td>
+                      <td>{user.name.first} {user.name.last}</td>
+                      <td>{user.email}</td>
+                      <td>
+                        <button
+                          onClick={() => toggleFavorite(user)}
+                          className={
+                            favorites.some((fav) => fav.email === user.email)
+                              ? "favorite-btn active"
+                              : "favorite-btn"
+                          }
+                        >
+                          {favorites.some((fav) => fav.email === user.email)
+                            ? "Eliminar de favoritos"
+                            : "Agregar a favoritos"}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             )}
           </div>
         )}
-        {activeTab === "filtro" && <p>Filtrar resultados...</p>}
-        {activeTab === "buscar" && <p>Buscador de usuarios...</p>}
+
+        {/* Pestaña de favoritos */}
         {activeTab === "favoritos" && (
           <div className="user-list">
+            <h2>Usuarios Favoritos</h2>
             {favorites.length === 0 ? (
-              <p>No tienes favoritos.</p>
+              <p>No tienes usuarios en favoritos.</p>
             ) : (
-              favorites.map((user) => (
-                <UserCard
-                  key={user.email}
-                  user={user}
-                  favorites={favorites}
-                  toggleFavorite={toggleFavorite}
-                />
-              ))
+              <ul>
+                {favorites.map((user) => (
+                  <li key={user.email}>
+                    <img src={user.picture.medium} alt={user.name.first} />
+                    <span>{user.name.first} {user.name.last}</span>
+                    <button
+                      onClick={() => toggleFavorite(user)}
+                      className="favorite-btn"
+                    >
+                      Eliminar de favoritos
+                    </button>
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
         )}
+
+        {/* Otras pestañas */}
+        {activeTab === "filtro" && <p>Filtrar resultados...</p>}
+        {activeTab === "buscar" && <p>Buscador de usuarios...</p>}
         {activeTab === "configuracion" && <p>Configuración de la aplicación</p>}
       </div>
 
+      {/* Menú Inferior */}
       <FooterMenu activeTab={activeTab} setActiveTab={setActiveTab} />
     </div>
   );

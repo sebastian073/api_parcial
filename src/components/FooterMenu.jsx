@@ -14,13 +14,13 @@ const FooterMenu = ({ activeTab, setActiveTab }) => {
           className={activeTab === "lista" ? "active" : ""}
           onClick={() => setActiveTab("lista")}
         >
-          Lista
+          Usuarios
         </li>
         <li
           className={activeTab === "filtro" ? "active" : ""}
           onClick={() => setActiveTab("filtro")}
         >
-          Filtro
+          Filtrar
         </li>
         <li
           className={activeTab === "buscar" ? "active" : ""}
