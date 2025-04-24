@@ -138,10 +138,10 @@ function App() {
           Favoritos
         </button>
         <button className={`tab-btn ${tab === "extra1" ? "active" : ""}`} onClick={() => setTab("extra1")}>
-          Extra 1
+          borrar
         </button>
         <button className={`tab-btn ${tab === "extra2" ? "active" : ""}`} onClick={() => setTab("extra2")}>
-          Extra 2
+          agregar
         </button>
       </div>
     </div>
