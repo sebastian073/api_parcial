@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import FooterMenu from "./components/FooterMenu";
+import FooterMenu from "./components/FooterMenu"; // Menú inferior
 
 const App = () => {
-  const [users, setUsers] = useState([]); // Usuarios generados
-  const [favorites, setFavorites] = useState([]); // Usuarios favoritos
-  const [search, setSearch] = useState(""); // Búsqueda
-  const [filteredUsers, setFilteredUsers] = useState([]); // Usuarios filtrados
+  const [users, setUsers] = useState([]); // Para los usuarios generados
+  const [favorites, setFavorites] = useState([]); // Para los usuarios favoritos
+  const [search, setSearch] = useState(""); // Para el campo de búsqueda
+  const [filteredUsers, setFilteredUsers] = useState([]); // Para filtrar los usuarios mostrados
   const [loading, setLoading] = useState(false); // Estado de carga
   const [activeTab, setActiveTab] = useState("inicio"); // Pestaña activa
 
   // Función para generar usuarios aleatorios
   const generateUsers = () => {
-    setLoading(true);
-    fetch("https://randomuser.me/api/?results=10") // Obtener 10 usuarios
+    setLoading(true); // Activamos el estado de carga
+    fetch("https://randomuser.me/api/?results=10") // Solicitar 10 usuarios
       .then((response) => response.json())
       .then((data) => {
-        setUsers(data.results); // Almacenar los usuarios generados
-        setFilteredUsers(data.results); // Filtrar por defecto
-        setLoading(false);
+        setUsers(data.results); // Guardamos los usuarios generados
+        setFilteredUsers(data.results); // Mostramos todos inicialmente
+        setLoading(false); // Desactivamos el estado de carga
       })
       .catch((error) => {
         console.error("Error al generar usuarios:", error);
@@ -40,13 +40,13 @@ const App = () => {
     }
   }, [search, users]);
 
-  // Agregar o quitar favoritos
+  // Función para agregar o quitar usuarios de favoritos
   const toggleFavorite = (user) => {
     setFavorites((prevFavorites) => {
       if (prevFavorites.some((fav) => fav.email === user.email)) {
-        return prevFavorites.filter((fav) => fav.email !== user.email); // Eliminar
+        return prevFavorites.filter((fav) => fav.email !== user.email); // Eliminar si ya está en favoritos
       }
-      return [...prevFavorites, user]; // Agregar
+      return [...prevFavorites, user]; // Agregar a favoritos
     });
   };
 
@@ -58,7 +58,7 @@ const App = () => {
           type="text"
           placeholder="Buscar usuario..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => setSearch(e.target.value)} // Filtrar mientras se escribe
         />
         <button onClick={generateUsers} className="generate-btn">
           Generar Usuarios
@@ -73,7 +73,7 @@ const App = () => {
         {activeTab === "lista" && (
           <div className="user-list">
             {loading ? (
-              <p>Cargando usuarios...</p>
+              <p>Cargando usuarios...</p> // Mostrar estado de carga
             ) : (
               <table className="user-table">
                 <thead>
