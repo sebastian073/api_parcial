@@ -60,24 +60,29 @@ const App = () => {
 
   return (
     <div className="app">
-      <h1>Gestión de Usuarios con Supabase</h1>
+      <header className="header">
+        <h1>Gestión de Usuarios con Supabase</h1>
+      </header>
 
       {/* Sección Registro */}
-      <section>
+      <section className="section">
         <h2>Registro</h2>
+        <Register />
       </section>
 
       {/* Sección Login */}
-      <section>
+      <section className="section">
         <h2>Login</h2>
+        <Login />
       </section>
 
       {/* Sección Notas */}
-      <section>
+      <section className="section">
         <h2>Notas Personales</h2>
+        <Notes />
       </section>
 
-      {/* Listado de Usuarios */}
+      {/* Buscador */}
       {tab === "search" && (
         <input
           type="text"
@@ -88,12 +93,13 @@ const App = () => {
         />
       )}
 
-      <div>
+      {/* Lista de Usuarios */}
+      <div className="user-list">
         {displayedUsers.map((user) => (
           <div key={user.email} className="card">
             <div className="card-header">
-              <img src={user.picture.thumbnail} alt={user.name.first} />
-              <div>
+              <img src={user.picture.thumbnail} alt={user.name.first} className="user-img" />
+              <div className="user-info">
                 <strong>{user.name.first} {user.name.last}</strong>
                 <div>{user.email}</div>
               </div>
