@@ -65,19 +65,16 @@ const App = () => {
       {/* Sección Registro */}
       <section>
         <h2>Registro</h2>
-        <Register />
       </section>
 
       {/* Sección Login */}
       <section>
         <h2>Login</h2>
-        <Login />
       </section>
 
       {/* Sección Notas */}
       <section>
         <h2>Notas Personales</h2>
-        <Notes />
       </section>
 
       {/* Listado de Usuarios */}
