@@ -10,29 +10,59 @@ const App = () => {
     {
       name: { first: "John", last: "Doe" },
       email: "johndoe@example.com",
+      gender: "male",
       picture: { thumbnail: "https://randomuser.me/api/portraits/thumb/men/1.jpg" }
     },
     {
       name: { first: "Jane", last: "Smith" },
       email: "janesmith@example.com",
+      gender: "female",
       picture: { thumbnail: "https://randomuser.me/api/portraits/thumb/women/2.jpg" }
     },
     {
       name: { first: "Mike", last: "Johnson" },
       email: "mikejohnson@example.com",
+      gender: "male",
       picture: { thumbnail: "https://randomuser.me/api/portraits/thumb/men/3.jpg" }
     },
     {
       name: { first: "Emily", last: "Brown" },
       email: "emilybrown@example.com",
+      gender: "female",
       picture: { thumbnail: "https://randomuser.me/api/portraits/thumb/women/4.jpg" }
     },
+    // Nuevos usuarios agregados:
+    {
+      name: { first: "Carlos", last: "Lopez" },
+      email: "carloslopez@example.com",
+      gender: "male",
+      picture: { thumbnail: "https://randomuser.me/api/portraits/thumb/men/5.jpg" }
+    },
+    {
+      name: { first: "Laura", last: "Gomez" },
+      email: "lauragomez@example.com",
+      gender: "female",
+      picture: { thumbnail: "https://randomuser.me/api/portraits/thumb/women/6.jpg" }
+    },
+    {
+      name: { first: "David", last: "Martinez" },
+      email: "davidmartinez@example.com",
+      gender: "male",
+      picture: { thumbnail: "https://randomuser.me/api/portraits/thumb/men/7.jpg" }
+    },
+    {
+      name: { first: "Ana", last: "Rodriguez" },
+      email: "anarodriguez@example.com",
+      gender: "female",
+      picture: { thumbnail: "https://randomuser.me/api/portraits/thumb/women/8.jpg" }
+    }
   ];
 
   const [users, setUsers] = useState(usersData);
   const [search, setSearch] = useState("");
   const [favorites, setFavorites] = useState([]);
   const [tab, setTab] = useState("all");
+  const [genderFilter, setGenderFilter] = useState("all"); // nuevo estado para género
 
   const toggleFavorite = (email) => {
     setFavorites((prev) =>
@@ -53,6 +83,11 @@ const App = () => {
       );
     }
 
+    // Filtro por género en todos los casos, excepto si es "all"
+    if (genderFilter !== "all") {
+      list = list.filter(user => user.gender === genderFilter);
+    }
+
     return list;
   };
 
@@ -61,7 +96,7 @@ const App = () => {
   return (
     <div className="app">
       <header className="header">
-        <h1>Gestión de Usuarios con Supabase</h1>
+        <h1>Gestión de Usuarios</h1>
       </header>
 
       {/* Sección Registro */}
@@ -82,7 +117,21 @@ const App = () => {
         <Notes />
       </section>
 
-      {/* Buscador */}
+      {/* Filtro de género */}
+      <div style={{ margin: "1rem 0" }}>
+        <label htmlFor="genderFilter">Filtrar por género: </label>
+        <select
+          id="genderFilter"
+          value={genderFilter}
+          onChange={(e) => setGenderFilter(e.target.value)}
+        >
+          <option value="all">Todos</option>
+          <option value="male">Hombres</option>
+          <option value="female">Mujeres</option>
+        </select>
+      </div>
+
+      {/* Buscador solo si tab es search */}
       {tab === "search" && (
         <input
           type="text"
@@ -93,26 +142,30 @@ const App = () => {
         />
       )}
 
-      {/* Lista de Usuarios */}
+      {/* Lista de usuarios */}
       <div className="user-list">
-        {displayedUsers.map((user) => (
-          <div key={user.email} className="card">
-            <div className="card-header">
-              <img src={user.picture.thumbnail} alt={user.name.first} className="user-img" />
-              <div className="user-info">
-                <strong>{user.name.first} {user.name.last}</strong>
-                <div>{user.email}</div>
+        {displayedUsers.length === 0 ? (
+          <div>No se encontraron usuarios</div>
+        ) : (
+          displayedUsers.map((user) => (
+            <div key={user.email} className="card">
+              <div className="card-header">
+                <img src={user.picture.thumbnail} alt={user.name.first} className="user-img" />
+                <div className="user-info">
+                  <strong>{user.name.first} {user.name.last}</strong>
+                  <div>{user.email}</div>
+                </div>
               </div>
+              <button className="favorite-btn" onClick={() => toggleFavorite(user.email)}>
+                {favorites.includes(user.email) ? (
+                  <FaStar color="gold" size={20} />
+                ) : (
+                  <FaRegStar size={20} />
+                )}
+              </button>
             </div>
-            <button className="favorite-btn" onClick={() => toggleFavorite(user.email)}>
-              {favorites.includes(user.email) ? (
-                <FaStar color="gold" size={20} />
-              ) : (
-                <FaRegStar size={20} />
-              )}
-            </button>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
       {/* Menú Inferior */}
