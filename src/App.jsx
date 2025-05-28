@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
 import { FaStar, FaRegStar } from "react-icons/fa";
-import React from 'react';
 import Register from './components/Register';
 import Login from './components/Login';
 import Notes from './components/Notes';
