@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import "./App.css";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import React from 'react';
+import Register from './components/Register';
+import Login from './components/Login';
+import Notes from './components/Notes';
 
 function App() {
   const usersData = [
@@ -147,5 +151,31 @@ function App() {
     </div>
   );
 }
+
+const App = () => {
+  return (
+    <div className="app">
+      <h1>Gestión de Usuarios con Supabase</h1>
+      {/* Registro */}
+      <section>
+        <h2>Registro</h2>
+        <Register />
+      </section>
+
+      {/* Login */}
+      <section>
+        <h2>Login</h2>
+        <Login />
+      </section>
+
+      {/* Notas (Funcionalidad Original) */}
+      <section>
+        <h2>Notas Personales</h2>
+        <Notes />
+      </section>
+    </div>
+  );
+};
+
 
 export default App;
